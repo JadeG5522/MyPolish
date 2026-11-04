@@ -2,6 +2,11 @@
 
 A bullet hell (of sorts), with one important twist: **you cannot attack**. You control a small green ship, and the only thing you can do is dodge. Enemies and their bullets, mines, homing missiles and blast waves come at you from all sides, and all you can do is weave through them and survive for as long as possible. Touch anything and you're dead. After a short pause the arena resets and you try again.
 
+#My edits: 
+Added a bunch of polish to work with the fantasy: “The player pisses of a fleet of spaceships”. Including but not limited to: Background, Soundtrack, Player movement, Camera.
+The specifics you can find in the design document.
+
+
 ![The green player ship surrounded by enemies, bullets, mines and a homing missile](Docs/screenshot-action.png)
 
 Enemies are introduced one at a time, easiest to hardest. The full roster is only active after roughly five minutes, so the pressure keeps ramping up the longer you stay alive.
