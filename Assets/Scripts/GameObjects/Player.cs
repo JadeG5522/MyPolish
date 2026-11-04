@@ -33,8 +33,7 @@ public class Player : DoubleWingedTriangularShip
 
     protected override void HandleCollision(GameObject self, Collider2D colliderInformation)
     {
-        // Temporarily disabled for testing player collisions without death.
-        // OnPlayerDied?.Invoke(GameObject);
-        // DestroySelf();
+        OnPlayerDied?.Invoke(GameObject);
+        DestroySelf();
     }
 }
