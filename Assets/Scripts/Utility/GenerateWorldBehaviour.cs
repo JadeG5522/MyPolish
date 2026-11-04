@@ -1,6 +1,7 @@
 using ObjectPool;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public enum CollisionLayer
 {
@@ -12,6 +13,10 @@ public enum CollisionLayer
 public class GenerateWorldBehaviour : MonoBehaviour
 {
     private Player player;    
+    [SerializeField] private TMP_Text survivalTimerText;
+    private float survivalTime;
+    private int displayedSeconds = -1;
+    private bool isPlayerAlive;
 
     private static Rect playArea = new Rect(0, 0, 25, 25);
     private static Rect worldArea = new Rect(-20, -10, 65, 45);
@@ -21,6 +26,38 @@ public class GenerateWorldBehaviour : MonoBehaviour
 	{
         CreateEnvironment();
         GenerateWorld();
+
+        survivalTime = 0f;
+        isPlayerAlive = true;
+        UpdateSurvivalTimerDisplay();
+	}
+
+    private void Update()
+    {
+        if (!isPlayerAlive)
+        {
+            return;
+        }
+
+        survivalTime += Time.deltaTime;
+        int elapsedSeconds = Mathf.FloorToInt(survivalTime);
+        if (elapsedSeconds != displayedSeconds)
+        {
+            UpdateSurvivalTimerDisplay();
+        }
+    }
+
+    private void UpdateSurvivalTimerDisplay()
+    {
+        displayedSeconds = Mathf.FloorToInt(survivalTime);
+        if (survivalTimerText == null)
+        {
+            return;
+        }
+
+        int minutes = displayedSeconds / 60;
+        int seconds = displayedSeconds % 60;
+        survivalTimerText.text = $"Time Alive: {minutes:00}:{seconds:00}";
     }
 
     private IEnumerator WaitAndRestartGame()
@@ -28,12 +65,17 @@ public class GenerateWorldBehaviour : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         player.Activate(new Vector2(playArea.width / 2 + playArea.xMin, playArea.height / 2 + playArea.yMin));
+        isPlayerAlive = true;
 
         CreateEnemies();
     }
 
     private void Player_OnPlayerDied(GameObject sender)
     {
+        isPlayerAlive = false;
+        survivalTime = 0f;
+        UpdateSurvivalTimerDisplay();
+
         StopAllCoroutines();
 
         StartCoroutine(WaitAndRestartGame());
