@@ -7,5 +7,6 @@ public class EntityList : Entity
     public EntityList(string name) : base(name)
     {
         entities = new List<Entity>();
+        GameObject.AddComponent<PlayAreaVisibilityBehaviour>();
     }
 }

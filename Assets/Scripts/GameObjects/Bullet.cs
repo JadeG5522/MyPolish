@@ -20,6 +20,7 @@ public class Bullet : Sphere, IProjectile
         GameObject.layer = (int)CollisionLayer.Projectile;
 
         CreatePrimitiveShape();
+        GameObject.AddComponent<PlayAreaVisibilityBehaviour>();
         rigidbody = GameObject.AddComponent<Rigidbody2D>();
         
         collisionBehaviour = GameObject.AddComponent<CollisionBehaviour>();

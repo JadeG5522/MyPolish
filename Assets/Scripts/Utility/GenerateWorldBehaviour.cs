@@ -19,6 +19,14 @@ public class GenerateWorldBehaviour : MonoBehaviour
     private bool isPlayerAlive;
 
     private static Rect playArea = new Rect(0, 0, 25, 25);
+    private const float backgroundPixelsPerUnit = 100f;
+    private const float backgroundScaleX = 4.2f;
+    private const float backgroundScaleY = 6.15f;
+    private static readonly Rect visibilityArea = new Rect(
+        playArea.center.x - (640f / backgroundPixelsPerUnit * backgroundScaleX) / 2f,
+        playArea.center.y - (427f / backgroundPixelsPerUnit * backgroundScaleY) / 2f,
+        640f / backgroundPixelsPerUnit * backgroundScaleX,
+        427f / backgroundPixelsPerUnit * backgroundScaleY);
     private static Rect worldArea = new Rect(-20, -10, 65, 45);
     public static Rect PlayArea => playArea; 
 
@@ -159,6 +167,11 @@ public class GenerateWorldBehaviour : MonoBehaviour
     public static bool IsPositionInPlayArea(Vector2 position)
     {
         return PlayArea.Contains(position);
+    }
+
+    public static bool IsPositionInVisibilityArea(Vector2 position)
+    {
+        return visibilityArea.Contains(position);
     }
 
     private Rectangle CreateWall(Vector2 position, Vector2 size)

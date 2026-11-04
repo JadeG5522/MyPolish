@@ -15,6 +15,7 @@ public class TriangularShip : Triangle
         rigidbody = GameObject.AddComponent<Rigidbody2D>();
         rigidbody.gravityScale = 0;
 
+        GameObject.AddComponent<PlayAreaVisibilityBehaviour>();
         collisionBehaviour = GameObject.AddComponent<CollisionBehaviour>();
         collisionBehaviour.SubscribeToTriggerEnteredEvent(HandleCollision);
     }
